@@ -4,7 +4,8 @@
     "description": "一个用来快速开始编写 HamiBot 脚本的模板",
     "main": "index.js",
     "scripts": {
-        "build": "webpack --config ./buildConfig/webpack.dev.js"
+        "build": "webpack --config ./buildConfig/webpack.dev.js",
+        "MyBuildConfig": "webpack --config ./buildConfig/webpack.MyBuildConfig.js"
     },
     "keywords": [
         "hamibot",

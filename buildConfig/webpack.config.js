@@ -12,6 +12,12 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
+    watch:true,
+    watchOptions:{
+        poll:1000,
+        aggregateTimeout:500,
+        ignored:/node_modules/
+    },
     mode: "production",
 
     // 指定webpack打包的时候要使用的模块
