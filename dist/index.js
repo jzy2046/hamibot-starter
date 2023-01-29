@@ -639,51 +639,88 @@ function init() {
 ;// CONCATENATED MODULE: ./src/index.ts
 
 init();
+setScreenMetrics(1200, 2640);
+toChat();
+sleep(1000);
+help(900, 550, "点淘");
+help(900, 920, "点淘");
+help(900, 1270, "点淘");
+help(900, 1620, "淘特");
+help(900, 1900, "淘特");
+help(900, 2185, "淘特");
+help(900, 2480, "淘特");
+swipe(900, 2300, 900, 450, 300);
+sleep(1000);
+help(900, 1400, "淘特");
+help(900, 1690, "淘特");
+help(900, 1960, "淘特");
+help(900, 2238, "淘特");
+console.hide();
 
-function dianTao(x, y) {
-  longClick(x, y);
+function help(x, y, str) {
+  console.log('长按复制坐标:%d ,%d', x, y);
+  press(x, y, 1000);
   sleep(1000);
-  click('复制');
+
+  while (!click('复制')) {
+    ;
+  }
+
   sleep(1000);
-  console.log('复制成功开机进入点淘');
-  app.launchApp("点淘");
+  console.log('复制成功开机进入APP');
+  app.launchApp(str);
   console.log('等待8秒加载助力页面');
   sleep(8000);
   console.log('点击打开助力');
-  click('查看详情');
-  sleep(2000);
-  click('打开');
-  sleep(2000);
-  click('助力');
-  sleep(2000);
+  clickForName(str);
   app.launchApp("微信");
   sleep(2000);
 }
 
-var chatName = "媳妇助力群";
-console.show();
-console.log('开始执行助力脚本！');
-console.log('设置手机静音避免打扰');
-device.setMusicVolume(0);
-console.log('设置成功');
-console.log('打开微信');
-app.launchApp("微信");
-console.log('微信打开成功');
-console.log('休息两秒开始脚本');
-sleep(2000);
-console.log('点击查询开始搜索群名称：%s', chatName);
-click(950, 200);
-sleep(1000);
-setText(chatName);
-sleep(1000);
-click(950, 400);
-sleep(1000);
-click("群聊的聊天记录");
-sleep(1000);
-click("进入聊天聊天记录成功");
-dianTao(900, 450);
-dianTao(900, 950);
-dianTao(900, 1250);
-console.hide();
+function clickForName(appName) {
+  switch (appName) {
+    case "点淘":
+      console.log('点淘助力方式！');
+      click('查看详情');
+      sleep(2000);
+      click('打开');
+      sleep(2000);
+      click('助力');
+      sleep(2000);
+      break;
+
+    case "淘特":
+      console.log('淘特助力方式！');
+      click(620, 1590);
+      sleep(2000);
+      click(620, 1820);
+      sleep(2000);
+      break;
+  }
+}
+
+function toChat() {
+  var chatName = "媳妇助力群";
+  console.show();
+  console.log('开始执行助力脚本！');
+  console.log('设置手机静音避免打扰');
+  device.setMusicVolume(0);
+  console.log('设置成功');
+  console.log('打开微信');
+  app.launchApp("微信");
+  console.log('微信打开成功');
+  console.log('休息两秒开始脚本');
+  sleep(2000);
+  console.log('点击查询开始搜索群名称：%s', chatName);
+  click(950, 200);
+  sleep(1000);
+  setText(chatName);
+  sleep(1000);
+  press(900, 520, 300);
+  sleep(1000);
+  click("群聊的聊天记录");
+  sleep(1000);
+  console.log("进入聊天聊天记录成功");
+}
 /******/ })()
 ;
