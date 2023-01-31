@@ -638,25 +638,45 @@ function init() {
 }
 ;// CONCATENATED MODULE: ./src/index.ts
 
+var arrImg = ['/sdcard/Pictures/Screenshots/22.jpg', '/sdcard/Pictures/Screenshots/11.jpg', '/sdcard/Pictures/Screenshots/33.jpg', '/sdcard/Pictures/Screenshots/55.jpg', '/sdcard/Pictures/Screenshots/66.jpg'];
 mainFunction();
 
 function mainFunction() {
   init();
   setScreenMetrics(1200, 2640);
   console.show();
-  var img = images.read('/sdcard/Pictures/Screenshots/2.jpg');
-  var templ = images.read('/sdcard/Pictures/Screenshots/22.jpg');
-  console.log(img);
+  requestScreenCapture(false);
+  sleep(2000);
+  setScreenMetrics(1200, 2640);
+  toChat();
+  sleep(1000);
+  help(900, 550, "点淘");
+  console.hide();
+  device.vibrate(1000);
+}
 
-  if (img != null && templ != null) {
-    var p = findImage(img, templ);
+function clickFunction() {
+  var img = captureScreen();
+  arrImg.forEach(function (value, index, array) {
+    console.log(value);
+    var templ = images.read(value);
+    console.log(templ);
 
-    if (p) {
-      console.log('找到啦:' + p);
-    } else {
-      console.log('没找到');
+    if (img != null && templ != null) {
+      var p = findImage(img, templ);
+
+      if (p) {
+        console.log('找到啦:' + p);
+        click(p.x, p.y);
+        console.log('点击成功');
+        return true;
+      } else {
+        console.log('没找到');
+      }
+
+      sleep(300);
     }
-  }
+  });
 }
 
 function helpTaoTe() {
@@ -696,12 +716,7 @@ function clickForName(appName) {
   switch (appName) {
     case "点淘":
       console.log('点淘助力方式！');
-      click(600, 1650);
-      sleep(2000);
-      click(620, 1820);
-      sleep(2000);
-      click(600, 1650);
-      sleep(2000);
+      clickFunction();
       break;
 
     case "淘特":

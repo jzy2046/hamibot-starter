@@ -8,6 +8,7 @@
  */
 import { } from "./global";
 import { init } from "./lib/init";
+var arrImg = ['/sdcard/Pictures/Screenshots/22.jpg','/sdcard/Pictures/Screenshots/11.jpg','/sdcard/Pictures/Screenshots/33.jpg', '/sdcard/Pictures/Screenshots/55.jpg', '/sdcard/Pictures/Screenshots/66.jpg'];
 
 mainFunction();
 
@@ -15,30 +16,50 @@ function mainFunction() {
   init();
   setScreenMetrics(1200, 2640);
   console.show();
-  var img = images.read('/sdcard/Pictures/Screenshots/2.jpg');
-  var templ = images.read('/sdcard/Pictures/Screenshots/22.jpg');
-  console.log(img);
-  if (img != null && templ != null) {
-    var p = findImage(img, templ);
-    if (p) {
-      console.log('找到啦:' + p);
-    } else {
-      console.log('没找到');
-    }
-  }
-// toChat();
-// sleep(1000);
-// //开始助力点淘
-// // help(900, 550, "点淘");
-// // //点淘2
-// // help(900, 920, "点淘");
-// // //点淘3
-// // help(900, 1270, "点淘");
-// helpTaoTe()
-// console.hide();
-// //执行结束震动1秒提示完成
-// device.vibrate(1000);
+  // 请求横屏截图
+  requestScreenCapture(false);
+  sleep(2000);
+  //设置手机分辨率
+  setScreenMetrics(1200, 2640);
+  //进入微信聊天复制链接
+  toChat();
+  sleep(1000);
+  //开始助力点淘
+  help(900, 550, "点淘");
+  // //点淘2
+  // help(900, 920, "点淘");
+  // //点淘3
+  // help(900, 1270, "点淘");
+  // helpTaoTe()
+  console.hide();
+  //执行结束震动1秒提示完成
+  device.vibrate(1000);
 
+}
+
+//截图方式点击助力按钮
+function clickFunction() {
+  // 截图
+  var img = captureScreen();
+  //开始通过截图内容进行按钮定位和点击操作
+  arrImg.forEach(function (value, index, array) {
+    console.log(value);
+    var templ = images.read(value);
+    console.log(templ);
+    if (img != null && templ != null) {
+      var p = findImage(img, templ);
+      if (p) {
+        console.log('找到啦:' + p);
+        //尝试点击
+        click(p.x, p.y);
+        console.log('点击成功');
+        return true;
+      } else {
+        console.log('没找到');
+      }
+      sleep(300);
+    }
+  });
 }
 
 function helpTaoTe() {
@@ -85,12 +106,13 @@ function clickForName(appName: string) {
   switch (appName) {
     case "点淘":
       console.log('点淘助力方式！');
-      click(600, 1650);
-      sleep(2000);
-      click(620, 1820);
-      sleep(2000);
-      click(600, 1650);
-      sleep(2000);
+      clickFunction();
+      // click(600, 1650);
+      // sleep(2000);
+      // click(620, 1820);
+      // sleep(2000);
+      // click(600, 1650);
+      // sleep(2000);
       break;
     case "淘特":
       console.log('淘特助力方式！');
