@@ -638,22 +638,39 @@ function init() {
 }
 ;// CONCATENATED MODULE: ./src/index.ts
 
-init();
-setScreenMetrics(1200, 2640);
-toChat();
-sleep(1000);
-help(900, 550, "点淘");
-help(900, 920, "点淘");
-help(900, 1270, "点淘");
-help(900, 1620, "淘特");
-help(900, 1900, "淘特");
-help(900, 2185, "淘特");
-help(900, 2480, "淘特");
-swipe(900, 2300, 900, 450, 300);
-sleep(1000);
-help(900, 1960, "淘特");
-console.hide();
-device.vibrate(500);
+mainFunction();
+
+function mainFunction() {
+  init();
+  setScreenMetrics(1200, 2640);
+  console.show();
+  var img = images.read('/sdcard/Pictures/Screenshots/2.jpg');
+  var templ = images.read('/sdcard/Pictures/Screenshots/22.jpg');
+  console.log(img);
+
+  if (img != null && templ != null) {
+    var p = findImage(img, templ);
+
+    if (p) {
+      console.log('找到啦:' + p);
+    } else {
+      console.log('没找到');
+    }
+  }
+}
+
+function helpTaoTe() {
+  help(900, 1620, "淘特");
+  help(900, 1900, "淘特");
+  help(900, 2185, "淘特");
+  help(900, 2480, "淘特");
+  swipe(900, 2300, 900, 450, 300);
+  sleep(1000);
+  help(900, 1400, "淘特");
+  help(900, 1690, "淘特");
+  help(900, 1960, "淘特");
+  help(900, 2238, "淘特");
+}
 
 function help(x, y, str) {
   console.log('长按复制坐标:%d ,%d', x, y);
@@ -681,11 +698,9 @@ function clickForName(appName) {
       console.log('点淘助力方式！');
       click(600, 1650);
       sleep(2000);
+      click(620, 1820);
+      sleep(2000);
       click(600, 1650);
-      sleep(2000);
-      click(620, 1820);
-      sleep(2000);
-      click(620, 1820);
       sleep(2000);
       break;
 
@@ -700,8 +715,7 @@ function clickForName(appName) {
 }
 
 function toChat() {
-  var chatName = "媳妇助力群";
-  console.show();
+  var chatName = "淘特点淘助力群";
   console.log('开始执行助力脚本！');
   console.log('设置手机静音避免打扰');
   device.setMusicVolume(0);

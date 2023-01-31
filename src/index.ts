@@ -9,40 +9,59 @@
 import { } from "./global";
 import { init } from "./lib/init";
 
-init();
-setScreenMetrics(1200, 2640);
-toChat();
-sleep(1000);
-//开始助力点淘
-help(900, 550, "点淘");
-//点淘2
-help(900, 920, "点淘");
-//点淘3
-help(900, 1270, "点淘");
-//淘特1
-help(900, 1620, "淘特");
-//淘特2
-help(900, 1900, "淘特");
-//淘特3
-help(900, 2185, "淘特");
-//淘特4
-help(900, 2480, "淘特");
-//滑动翻页到底
-swipe(900, 2300, 900, 450, 300);
-sleep(1000);
-//淘特5
-// help(900, 1400, "淘特");
-// //淘特6
-// help(900, 1690, "淘特");
-//淘特7
-help(900, 1960, "淘特");
-//淘特8
-// help(900, 2238, "淘特");
-console.hide();
-//执行结束震动1秒提示完成
-device.vibrate(500);
+mainFunction();
 
+function mainFunction() {
+  init();
+  setScreenMetrics(1200, 2640);
+  console.show();
+  var img = images.read('/sdcard/Pictures/Screenshots/2.jpg');
+  var templ = images.read('/sdcard/Pictures/Screenshots/22.jpg');
+  console.log(img);
+  if (img != null && templ != null) {
+    var p = findImage(img, templ);
+    if (p) {
+      console.log('找到啦:' + p);
+    } else {
+      console.log('没找到');
+    }
+  }
+// toChat();
+// sleep(1000);
+// //开始助力点淘
+// // help(900, 550, "点淘");
+// // //点淘2
+// // help(900, 920, "点淘");
+// // //点淘3
+// // help(900, 1270, "点淘");
+// helpTaoTe()
+// console.hide();
+// //执行结束震动1秒提示完成
+// device.vibrate(1000);
 
+}
+
+function helpTaoTe() {
+  //淘特1
+  help(900, 1620, "淘特");
+  //淘特2
+  help(900, 1900, "淘特");
+  //淘特3
+  help(900, 2185, "淘特");
+  //淘特4
+  help(900, 2480, "淘特");
+  //滑动翻页到底
+  swipe(900, 2300, 900, 450, 300);
+  sleep(1000);
+  //淘特5
+  help(900, 1400, "淘特");
+  //淘特6
+  help(900, 1690, "淘特");
+  //淘特7
+  help(900, 1960, "淘特");
+  //淘特8
+  help(900, 2238, "淘特");
+}
 
 function help(x: number, y: number, str: string) {
   //开始助力点淘
@@ -68,11 +87,9 @@ function clickForName(appName: string) {
       console.log('点淘助力方式！');
       click(600, 1650);
       sleep(2000);
+      click(620, 1820);
+      sleep(2000);
       click(600, 1650);
-      sleep(2000);
-      click(620, 1820);
-      sleep(2000);
-      click(620, 1820);
       sleep(2000);
       break;
     case "淘特":
@@ -87,8 +104,7 @@ function clickForName(appName: string) {
 
 //找到微信分享链接集合
 function toChat() {
-  var chatName = "媳妇助力群";
-  console.show();
+  var chatName = "淘特点淘助力群";
   //脚本日志开始！
   console.log('开始执行助力脚本！');
   //调整手机未静音
