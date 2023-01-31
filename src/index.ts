@@ -31,16 +31,16 @@ help(900, 2480, "淘特");
 swipe(900, 2300, 900, 450, 300);
 sleep(1000);
 //淘特5
-help(900, 1400, "淘特");
-//淘特6
-help(900, 1690, "淘特");
+// help(900, 1400, "淘特");
+// //淘特6
+// help(900, 1690, "淘特");
 //淘特7
 help(900, 1960, "淘特");
 //淘特8
-help(900, 2238, "淘特");
+// help(900, 2238, "淘特");
 console.hide();
 //执行结束震动1秒提示完成
-//device.vibrate(500);
+device.vibrate(500);
 
 
 
@@ -66,11 +66,13 @@ function clickForName(appName: string) {
   switch (appName) {
     case "点淘":
       console.log('点淘助力方式！');
-      click('查看详情');
+      click(600, 1650);
       sleep(2000);
-      click('打开');
+      click(600, 1650);
       sleep(2000);
-      click('助力');
+      click(620, 1820);
+      sleep(2000);
+      click(620, 1820);
       sleep(2000);
       break;
     case "淘特":

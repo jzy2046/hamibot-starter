@@ -651,11 +651,9 @@ help(900, 2185, "淘特");
 help(900, 2480, "淘特");
 swipe(900, 2300, 900, 450, 300);
 sleep(1000);
-help(900, 1400, "淘特");
-help(900, 1690, "淘特");
 help(900, 1960, "淘特");
-help(900, 2238, "淘特");
 console.hide();
+device.vibrate(500);
 
 function help(x, y, str) {
   console.log('长按复制坐标:%d ,%d', x, y);
@@ -681,11 +679,13 @@ function clickForName(appName) {
   switch (appName) {
     case "点淘":
       console.log('点淘助力方式！');
-      click('查看详情');
+      click(600, 1650);
       sleep(2000);
-      click('打开');
+      click(600, 1650);
       sleep(2000);
-      click('助力');
+      click(620, 1820);
+      sleep(2000);
+      click(620, 1820);
       sleep(2000);
       break;
 
