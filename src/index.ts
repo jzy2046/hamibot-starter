@@ -8,7 +8,8 @@
  */
 import { } from "./global";
 import { init } from "./lib/init";
-var arrImg = ['/sdcard/Pictures/Screenshots/22.jpg','/sdcard/Pictures/Screenshots/11.jpg','/sdcard/Pictures/Screenshots/33.jpg', '/sdcard/Pictures/Screenshots/55.jpg', '/sdcard/Pictures/Screenshots/66.jpg'];
+var inToImg = '/sdcard/111aa/22.jpg';
+var arrImg = ['/sdcard/111aa/22.jpg','/sdcard/111aa/11.jpg','/sdcard/111aa/33.jpg', '/sdcard/111aa/55.jpg', '/sdcard/111aa/66.jpg'];
 
 mainFunction();
 
@@ -27,10 +28,10 @@ function mainFunction() {
   //开始助力点淘
   help(900, 550, "点淘");
   // //点淘2
-  // help(900, 920, "点淘");
-  // //点淘3
-  // help(900, 1270, "点淘");
-  // helpTaoTe()
+  help(900, 920, "点淘");
+  //点淘3
+  help(900, 1270, "点淘");
+  helpTaoTe()
   console.hide();
   //执行结束震动1秒提示完成
   device.vibrate(1000);
@@ -38,7 +39,10 @@ function mainFunction() {
 }
 
 //截图方式点击助力按钮
-function clickFunction() {
+/**
+ * @param flag 是否是第一层
+ */
+function clickFunction(flag:boolean) {
   // 截图
   var img = captureScreen();
   //开始通过截图内容进行按钮定位和点击操作
@@ -53,11 +57,18 @@ function clickFunction() {
         //尝试点击
         click(p.x, p.y);
         console.log('点击成功');
+        //如果是第一层就判定 如果是第二层就直接点击后结束了
+        if (inToImg == value && flag){
+          //需要再次进行一次点击
+          sleep(2000)
+          console.log('等待加载第二层页面');
+          clickFunction(false);
+        }
         return true;
       } else {
         console.log('没找到');
       }
-      sleep(300);
+      sleep(3000);
     }
   });
 }
@@ -106,13 +117,7 @@ function clickForName(appName: string) {
   switch (appName) {
     case "点淘":
       console.log('点淘助力方式！');
-      clickFunction();
-      // click(600, 1650);
-      // sleep(2000);
-      // click(620, 1820);
-      // sleep(2000);
-      // click(600, 1650);
-      // sleep(2000);
+      clickFunction(true);
       break;
     case "淘特":
       console.log('淘特助力方式！');
