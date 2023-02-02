@@ -9,7 +9,9 @@
 import { } from "./global";
 import { init } from "./lib/init";
 var inToImg = '/sdcard/111aa/22.jpg';
-var arrImg = ['/sdcard/111aa/22.jpg','/sdcard/111aa/11.jpg','/sdcard/111aa/33.jpg', '/sdcard/111aa/55.jpg', '/sdcard/111aa/66.jpg'];
+var arrImg = ['/sdcard/111aa/22.jpg',
+  '/sdcard/111aa/11.jpg', '/sdcard/111aa/33.jpg',
+  '/sdcard/111aa/55.jpg'];
 
 mainFunction();
 
@@ -25,31 +27,35 @@ function mainFunction() {
   //进入微信聊天复制链接
   toChat();
   sleep(1000);
-  //开始助力点淘
-  help(900, 550, "点淘");
-  // //点淘2
-  help(900, 920, "点淘");
-  //点淘3
-  help(900, 1270, "点淘");
-  helpTaoTe()
+  helpDianTao();
+  helpTaoTe();
   console.hide();
   //执行结束震动1秒提示完成
   device.vibrate(1000);
 
 }
 
+function helpDianTao() {
+  //开始助力点淘
+  help(900, 550, "点淘");
+  // //点淘2
+  help(900, 920, "点淘");
+  //点淘3
+  help(900, 1270, "点淘");
+}
 //截图方式点击助力按钮
 /**
  * @param flag 是否是第一层
  */
-function clickFunction(flag:boolean) {
+function clickFunction(flag: boolean) {
   // 截图
   var img = captureScreen();
+  console.log("img=>" + img);
   //开始通过截图内容进行按钮定位和点击操作
   arrImg.forEach(function (value, index, array) {
-    console.log(value);
+    console.log("value=>" + value);
     var templ = images.read(value);
-    console.log(templ);
+    console.log("templ=>" + templ);
     if (img != null && templ != null) {
       var p = findImage(img, templ);
       if (p) {
@@ -58,17 +64,20 @@ function clickFunction(flag:boolean) {
         click(p.x, p.y);
         console.log('点击成功');
         //如果是第一层就判定 如果是第二层就直接点击后结束了
-        if (inToImg == value && flag){
+        console.log(flag + 'inToImg == value');
+        if (flag && inToImg == value) {
+          console.log('判定成功开始第二层递归');
           //需要再次进行一次点击
           sleep(2000)
           console.log('等待加载第二层页面');
           clickFunction(false);
+          return;
         }
-        return true;
+        return;
       } else {
         console.log('没找到');
       }
-      sleep(3000);
+      sleep(1000);
     }
   });
 }
