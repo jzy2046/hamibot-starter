@@ -648,7 +648,6 @@ function mainFunction() {
   console.show();
   requestScreenCapture(false);
   sleep(2000);
-  setScreenMetrics(1200, 2640);
   toChat();
   sleep(1000);
   helpDianTao();
@@ -664,9 +663,9 @@ function helpDianTao() {
 }
 
 function clickFunction(flag) {
-  var img = captureScreen();
-  console.log("img=>" + img);
   arrImg.forEach(function (value, index, array) {
+    var img = captureScreen();
+    console.log("img=>" + img);
     console.log("value=>" + value);
     var templ = images.read(value);
     console.log("templ=>" + templ);
@@ -685,10 +684,10 @@ function clickFunction(flag) {
           sleep(2000);
           console.log('等待加载第二层页面');
           clickFunction(false);
-          return;
+          return false;
         }
 
-        return;
+        return false;
       } else {
         console.log('没找到');
       }

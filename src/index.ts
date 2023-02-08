@@ -22,8 +22,6 @@ function mainFunction() {
   // 请求横屏截图
   requestScreenCapture(false);
   sleep(2000);
-  //设置手机分辨率
-  setScreenMetrics(1200, 2640);
   //进入微信聊天复制链接
   toChat();
   sleep(1000);
@@ -48,11 +46,11 @@ function helpDianTao() {
  * @param flag 是否是第一层
  */
 function clickFunction(flag: boolean) {
-  // 截图
-  var img = captureScreen();
-  console.log("img=>" + img);
   //开始通过截图内容进行按钮定位和点击操作
   arrImg.forEach(function (value, index, array) {
+    // 截图
+    var img = captureScreen();
+    console.log("img=>" + img);
     console.log("value=>" + value);
     var templ = images.read(value);
     console.log("templ=>" + templ);
@@ -71,9 +69,9 @@ function clickFunction(flag: boolean) {
           sleep(2000)
           console.log('等待加载第二层页面');
           clickFunction(false);
-          return;
+          return false;
         }
-        return;
+        return false;
       } else {
         console.log('没找到');
       }
