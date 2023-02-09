@@ -120,6 +120,7 @@ function help(x: number, y: number, str: string) {
   sleep(2000);
 }
 
+
 function clickForName(appName: string) {
   switch (appName) {
     case "点淘":
@@ -136,7 +137,7 @@ function clickForName(appName: string) {
   }
 }
 
-//找到微信分享链接集合
+//找到微信分享链接集合.
 function toChat() {
   var chatName = "淘特点淘助力群";
   //脚本日志开始！
