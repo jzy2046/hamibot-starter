@@ -641,6 +641,7 @@ function init() {
 var verificationImg = '/sdcard/111aa/666.jpg';
 var inToImg = '/sdcard/111aa/22.jpg';
 var arrImg = ['/sdcard/111aa/22.jpg', '/sdcard/111aa/11.jpg', '/sdcard/111aa/33.jpg', '/sdcard/111aa/55.jpg'];
+var taoTeCount = 0;
 mainFunction();
 
 function mainFunction() {
@@ -710,7 +711,6 @@ function helpTaoTe() {
 }
 
 function help(x, y, str) {
-  var count = 0;
   console.log('长按复制坐标:%d ,%d', x, y);
   press(x, y, 1000);
   sleep(1000);
@@ -725,10 +725,10 @@ function help(x, y, str) {
   console.log('等待8秒加载助力页面');
   sleep(8000);
   console.log('点击打开助力');
-  clickForName(str, count);
+  clickForName(str, taoTeCount);
   app.launchApp("微信");
   sleep(2000);
-  count = count + 1;
+  taoTeCount = taoTeCount + 1;
 }
 
 function clickForName(appName, count) {
