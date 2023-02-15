@@ -8,6 +8,7 @@
  */
 import { } from "./global";
 import { init } from "./lib/init";
+var verificationImg = '/sdcard/111aa/666.jpg';
 var inToImg = '/sdcard/111aa/22.jpg';
 var arrImg = ['/sdcard/111aa/22.jpg',
   '/sdcard/111aa/11.jpg', '/sdcard/111aa/33.jpg',
@@ -50,10 +51,7 @@ function clickFunction(flag: boolean) {
   arrImg.forEach(function (value, index, array) {
     // 截图
     var img = captureScreen();
-    console.log("img=>" + img);
-    console.log("value=>" + value);
     var templ = images.read(value);
-    console.log("templ=>" + templ);
     if (img != null && templ != null) {
       var p = findImage(img, templ);
       if (p) {
@@ -61,6 +59,7 @@ function clickFunction(flag: boolean) {
         //尝试点击
         click(p.x, p.y);
         console.log('点击成功');
+        sleep(1000);
         //如果是第一层就判定 如果是第二层就直接点击后结束了
         console.log(flag + 'inToImg == value');
         if (flag && inToImg == value) {
@@ -83,6 +82,7 @@ function clickFunction(flag: boolean) {
 function helpTaoTe() {
   //淘特1
   help(900, 1620, "淘特");
+  
   //淘特2
   help(900, 1900, "淘特");
   //淘特3
@@ -103,6 +103,7 @@ function helpTaoTe() {
 }
 
 function help(x: number, y: number, str: string) {
+  var count = 0;
   //开始助力点淘
   console.log('长按复制坐标:%d ,%d', x, y);
   press(x, y, 1000);
@@ -114,14 +115,15 @@ function help(x: number, y: number, str: string) {
   console.log('等待8秒加载助力页面');
   sleep(8000);
   console.log('点击打开助力');
-  clickForName(str);
+  clickForName(str, count);
   //返回微信
   app.launchApp("微信");
   sleep(2000);
+  count = count + 1;
 }
 
 
-function clickForName(appName: string) {
+function clickForName(appName: string, count: number) {
   switch (appName) {
     case "点淘":
       console.log('点淘助力方式！');
@@ -133,6 +135,22 @@ function clickForName(appName: string) {
       sleep(2000);
       click(620, 1820);
       sleep(2000);
+      if (count == 0){
+        //第一次会出现验证滑动验证
+        // 截图当前页面
+        var img = captureScreen();
+        var templ = images.read(verificationImg);
+        if (img != null && templ != null) {
+          var p = findImage(img, templ);
+          if (p) {
+            console.log('找到啦:' + p);
+            //尝试点击
+            swipe(p.x, p.y, p.x + 900, p.y, 500);
+            console.log('滑动验证完成!');
+            sleep(1000);
+          }
+        }
+      }
       break;
   }
 }

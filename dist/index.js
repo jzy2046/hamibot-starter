@@ -638,6 +638,7 @@ function init() {
 }
 ;// CONCATENATED MODULE: ./src/index.ts
 
+var verificationImg = '/sdcard/111aa/666.jpg';
 var inToImg = '/sdcard/111aa/22.jpg';
 var arrImg = ['/sdcard/111aa/22.jpg', '/sdcard/111aa/11.jpg', '/sdcard/111aa/33.jpg', '/sdcard/111aa/55.jpg'];
 mainFunction();
@@ -665,10 +666,7 @@ function helpDianTao() {
 function clickFunction(flag) {
   arrImg.forEach(function (value, index, array) {
     var img = captureScreen();
-    console.log("img=>" + img);
-    console.log("value=>" + value);
     var templ = images.read(value);
-    console.log("templ=>" + templ);
 
     if (img != null && templ != null) {
       var p = findImage(img, templ);
@@ -677,6 +675,7 @@ function clickFunction(flag) {
         console.log('找到啦:' + p);
         click(p.x, p.y);
         console.log('点击成功');
+        sleep(1000);
         console.log(flag + 'inToImg == value');
 
         if (flag && inToImg == value) {
@@ -711,6 +710,7 @@ function helpTaoTe() {
 }
 
 function help(x, y, str) {
+  var count = 0;
   console.log('长按复制坐标:%d ,%d', x, y);
   press(x, y, 1000);
   sleep(1000);
@@ -725,12 +725,13 @@ function help(x, y, str) {
   console.log('等待8秒加载助力页面');
   sleep(8000);
   console.log('点击打开助力');
-  clickForName(str);
+  clickForName(str, count);
   app.launchApp("微信");
   sleep(2000);
+  count = count + 1;
 }
 
-function clickForName(appName) {
+function clickForName(appName, count) {
   switch (appName) {
     case "点淘":
       console.log('点淘助力方式！');
@@ -743,6 +744,23 @@ function clickForName(appName) {
       sleep(2000);
       click(620, 1820);
       sleep(2000);
+
+      if (count == 0) {
+        var img = captureScreen();
+        var templ = images.read(verificationImg);
+
+        if (img != null && templ != null) {
+          var p = findImage(img, templ);
+
+          if (p) {
+            console.log('找到啦:' + p);
+            swipe(p.x, p.y, p.x + 900, p.y, 500);
+            console.log('滑动验证完成!');
+            sleep(1000);
+          }
+        }
+      }
+
       break;
   }
 }
